@@ -166,6 +166,7 @@ for gas in range(7):
         #hv_set.append(hv_start-300+50*k)
 
     fig.savefig('./Plots/Fits_{}.pdf'.format(gas_name))
+    fig.savefig('./Plots/Fits_{}.png'.format(gas_name))
     
     # Convert lists to numpy arrays for easier indexing
     means = np.array(means)
@@ -197,6 +198,7 @@ for gas in range(7):
 
     plt.grid(True)
     plt.savefig('./Plots/HV_vs_Mean_{}.pdf'.format(gas_name))
+    plt.savefig('./Plots/HV_vs_Mean_{}.png'.format(gas_name))
     #plt.show()
 
 # Create a 2D scatter plot
@@ -217,11 +219,15 @@ plt.title('Means of Gaussian Fits for All Setting')
 plt.xlim(2600,5250)
 # Function add a legend
 plt.legend(loc = (0.05, 0.7))#"center")
-
+plt.yscale("log")
 plt.savefig('./Plots/HV_vs_Mean_set.pdf')
+plt.savefig('./Plots/HV_vs_Mean_set.png')
 plt.ylim(0,0.20)
-plt.savefig('./Plots/HV_vs_Mean_set_zoom.pdf')
+plt.legend(loc = (0.5, 0.7))
+plt.yscale("linear")
 
+plt.savefig('./Plots/HV_vs_Mean_set_zoom.pdf')
+plt.savefig('./Plots/HV_vs_Mean_set_zoom.png')
 #plt.show()
 
 fig_set_s, ax_set_s = plt.subplots(figsize=(8, 6))
@@ -244,6 +250,7 @@ plt.title('Sigma Gaussian Fits for All Setting')
 plt.legend()
 
 plt.savefig('./Plots/HV_vs_Sigma_set.pdf')
+plt.savefig('./Plots/HV_vs_Sigma_set.png')
 
 
 plt.show()
