@@ -146,17 +146,17 @@ for gas in range(7):
         #print(i, " ", j)
         axes[i,j].bar(bin_edges[:-1], hist, width=np.diff(bin_edges), align='edge', edgecolor='black')
         # Plot the PDF.
-        xmin = mu - 5*sigma
-        xmax = mu + 5*sigma
+        xmin = mu - 3*sigma
+        xmax = mu + 3*sigma
         x = np.linspace(xmin, xmax, 100)
         p = norm.pdf(x, mu, sigma)
 
         axes[i,j].plot(x, p, 'k', linewidth=2)
         #axes[i,j].set_xlim(mu+5*sigma,0)
-        if gas==5 and k==7:
-            axes[i,j].set_xlim(-7*AMax,0)
-        if gas==6 and k>7:
-            axes[i,j].set_xlim(-10*AMax,0)
+        #if gas==5 and k==7:
+        #    axes[i,j].set_xlim(-7*AMax,0)
+        #if gas==6 and k>7:
+        #    axes[i,j].set_xlim(-10*AMax,0)
 
         if i>0:
             axes[i,j].set_xlabel('Amplitude [V]')
@@ -207,7 +207,7 @@ for gas in range(7):
 
     # Add labels and title
     plt.ylabel('Mean of Gaussian Fit')
-    plt.xlabel('HV Setting - 300 [V]')
+    plt.xlabel('HV Set [V]')
     plt.title('Means of Gaussian Fits for Each Setting')
 
     plt.grid(True)
@@ -225,12 +225,27 @@ scatter4 = ax_set.scatter(hv_sets[4], -mean_sets[4], marker='o', label=summary_l
 scatter5 = ax_set.scatter(hv_sets[5], -mean_sets[5], marker='X', label=summary_labels[5])
 scatter6 = ax_set.scatter(hv_sets[6], -mean_sets[6], marker='X', label=summary_labels[6])
 
+# Major ticks every 20, minor ticks every 5
+major_ticks = np.arange(0, 10000, 1000)
+minor_ticks = np.arange(0, 10000, 100)
+
+ax_set.set_xticks(major_ticks)
+ax_set.set_xticks(minor_ticks, minor=True)
+#ax_set.set_yticks(major_ticks)
+#ax_set.set_yticks(minor_ticks, minor=True)
+
+# And a corresponding grid
+ax_set.grid(which='both')
+
+# Or if you want different settings for the grids:
+ax_set.grid(which='minor', alpha=0.2)
+ax_set.grid(which='major', alpha=0.5)
 
 #line = ax_set.plot(hv_set, -means, linestyle='-', color='b')
 plt.grid(True)
 # Add labels and title
 plt.ylabel('Mean of Gaussian Fit')
-plt.xlabel('HV Setting - 300 [V]')
+plt.xlabel('HV Set [V]')
 plt.title('Means of Gaussian Fits for All Setting')
 plt.xlim(2600,5250)
 # Function add a legend
@@ -258,7 +273,7 @@ scatter6_s = ax_set_s.scatter(hv_sets[6], -sigma_sets[6], marker='X', label='Ar:
 plt.grid(True)
 # Add labels and title
 plt.ylabel(r'$\sigma / \mu [\%]$')
-plt.xlabel('HV Setting - 300 [V]')
+plt.xlabel('HV Set [V]')
 
 plt.title('Sigma Gaussian Fits for All Setting')
 
