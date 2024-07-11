@@ -15,6 +15,7 @@ sigma_sets = []
 lin_gain = []
 summary_labels = []
 
+window_number = -1
 for gas in range(7):
 
     means = []
@@ -103,15 +104,22 @@ for gas in range(7):
         lin_gain.append(10.0/1.0)
         AMax = 2.31
         summary_labels.append('Ar:CF4:Iso (75/20/5)')
-
+        
+    window_number+=1
+    print(window_number)
     print(gas_name)
     print(lin_gain)
-    fig, axes = plt.subplots(2, 4, figsize=(12, 9))
-    if gas == 6:
-        fig, axes = plt.subplots(3, 4, figsize=(12, 9))
-    
-    fig.suptitle('Fits for different voltages')
 
+    fig  = 0 
+    axes = 0
+
+    if gas==6:
+        fig, axes = plt.subplots(3, 4, figsize=(12, 9))
+    else:
+        fig, axes = plt.subplots(2, 4, figsize=(12, 9))
+
+    
+    fig.suptitle('Fits for different voltages: {}'.format(gas_name))
     for k,file in enumerate(files):
         #print(file)
         # Read the CSV file
@@ -181,7 +189,8 @@ for gas in range(7):
 
     fig.savefig('./Plots/Fits_{}.pdf'.format(gas_name))
     fig.savefig('./Plots/Fits_{}.png'.format(gas_name))
-    
+    window_number+=1
+    print(window_number)
     # Convert lists to numpy arrays for easier indexing
     means = np.array(means)
     sigmas = np.array(sigmas)
@@ -208,7 +217,7 @@ for gas in range(7):
     # Add labels and title
     plt.ylabel('Mean of Gaussian Fit')
     plt.xlabel('HV Set [V]')
-    plt.title('Means of Gaussian Fits for Each Setting')
+    plt.title('Means of Gaussian Fits for Each Setting: {}'.format(gas_name))
 
     plt.grid(True)
     plt.savefig('./Plots/HV_vs_Mean_{}.pdf'.format(gas_name))
